@@ -1,0 +1,10 @@
+%h3 List of all matches
+
+%table
+  %tbody
+    - @matches.each do | match |
+      %tr
+        %td
+          =match.venue.capitalize
+        %td
+          =match.match_date

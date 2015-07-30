@@ -1,0 +1,6 @@
+%h3 Update Tournament
+=form_for @tournament, url: game_tournament_path(@tournament.game.id, @tournament.id) do | form |
+  =form.label "Name"
+  =form.text_field :name
+  %br
+  =form.submit

@@ -1,0 +1,9 @@
+=form_for @game do | form |
+=form.label "Name"
+  =form.text_field :name
+  %br
+  =form.label "Scoring Points"
+  =form.text_field :scoring_points
+  %br
+  =form.submit
+

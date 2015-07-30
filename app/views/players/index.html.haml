@@ -1,0 +1,14 @@
+%h3 List of all players
+
+%table
+  %tbody
+    - @players.each do | player |
+      %tr
+        %td
+          =player.name.capitalize
+        %td
+          =link_to "Edit", edit_player_path(player.id)
+        %td
+          =link_to "Show", player_path(player.id)
+        %td
+          =link_to "Delete", player_path(player.id), method: "delete"

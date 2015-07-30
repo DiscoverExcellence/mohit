@@ -1,0 +1,14 @@
+%h3 List of all Tournaments
+
+%table
+  %tbody
+    - @tournaments.each do | tournament |
+      %tr
+        %td
+          =tournament.name.capitalize
+        %td
+          =link_to "Edit", edit_game_tournament_path(tournament.game.id, tournament.id)
+        %td
+          =link_to "Show", game_tournament_path(tournament.game.id, tournament.id)
+        %td
+          =link_to "Delete", game_tournament_path(tournament.game.id, tournament.id), method: "delete"

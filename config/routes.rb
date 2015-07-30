@@ -6,31 +6,42 @@ Rails.application.routes.draw do
   
   resources :games
 
-  concern :admin_match do
-    resources :matches, shallow: true
-  end
+  #concern :admin_match do
+  #  resources :matches, shallow: true
+  #end
 # 
 #  resources :match
   resources :tournaments,only: [:index, :show] do 
     concerns :match
   end
-  concerns :match
-  
-  namespace :admin do
+ 
+  resources :games do
     resources :tournaments
   end
 
-  resources :players, module: :admin
-  scope 'admin', as: 'admin_reports' do
-    resources :reports
+  resources :games do
+    concerns :match
   end
-  resources :reports do
-    get 'download_csv', on: :collection
-    get 'download_pdf', on: :member
-  end
-  # resources :tournament
   
-  post 'login',to: 'users#login'
+  #namespace :admin do
+  #  resources :tournaments
+  #end
+
+  resources :players
+  
+  
+  #scope 'admin', as: 'admin_reports' do
+  #  resources :reports
+  #end
+  
+  #resources :reports do
+  #  get 'download_csv', on: :collection
+  #get 'download_pdf', on: :member
+  #end
+  # resources :tournament
+
+  resources :logins, only: [:index, :new, :create]
+
   root 'tournaments#dashboard'
-  resources :match_points, as: :scores
+  #resources :match_points, as: :scores
 end

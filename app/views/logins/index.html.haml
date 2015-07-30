@@ -1,0 +1,17 @@
+%h3 Login
+=form_for @user,url: logins_path do | form |
+  %table
+    %tbody
+      %tr
+        %td
+          =form.label "Email"
+        %td
+          =form.text_field :email
+      %tr
+        %td
+          =form.label "Password"
+        %td
+          =form.password_field :password
+      %tr
+        %td
+          =form.submit "Login"

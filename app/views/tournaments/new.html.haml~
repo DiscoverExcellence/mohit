@@ -1,0 +1,6 @@
+%h3 Create Tournament
+=form_for @tournament,url: game_tournaments_path(@tournament.game.id) do | form |
+  =form.label "Name"
+  =form.text_field :name
+  %br
+  =form.submit

@@ -1,0 +1,18 @@
+=@game.errors.full_messages unless @game.errors.empty?
+=form_for @game do | form |
+  =form.label "Name"
+  =form.text_field :name
+  %br
+  =form.label "Scoring Points"
+  =form.text_field :scoring_points
+  %br
+  %h3 Match Details
+  %br
+  =form.fields_for :matches do | match |
+    =match.label "Venue"
+    =match.text_field :venue
+    %br
+    =match.label "Nos of Players"
+    =match.text_field :no_of_players
+    %br
+  =form.submit

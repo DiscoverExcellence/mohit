@@ -1,0 +1,14 @@
+%h3 Game Details
+
+%table
+  %tbody
+    %tr
+      %td
+        " Name "
+      %td
+        =@player.name
+    %tr
+      %td
+        "Information"
+      %td
+        =@player.info
