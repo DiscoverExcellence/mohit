@@ -40,7 +40,8 @@ Rails.application.routes.draw do
   #end
   # resources :tournament
 
-  resources :logins, only: [:index, :new, :create]
+  #resource :login, only: [:index, :new, :create]
+  resource :login, only: [:create, :show]
 
   root 'tournaments#dashboard'
   #resources :match_points, as: :scores

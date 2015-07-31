@@ -2,13 +2,16 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title DiscoverExcellence
+    %title DiscoverExcellencebo
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'assets/bower_components/bootstrap/dist/css/bootstrap.min.css'
+    = javascript_include_tag 'assets/bower_components/bootstrap/dist/js/bootstrap.min.js'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     = render 'shared/partial/header'
     .flash
       =flash[:notice]
-      
+    .flash
+      =flash[:error]  
     = yield 

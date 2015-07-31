@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
-  before_filter :find_game, only: [:show, :edit, :update, :destroy]
+  before_filter :find_game     , only: [:show, :edit, :update, :destroy]
+  
 
   def find_game
     @game = Game.find(params.require(:id))

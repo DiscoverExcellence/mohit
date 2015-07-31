@@ -1,24 +1,20 @@
 class LoginsController < ApplicationController
 
-  def index
+  def show
     @user = User.new
   end
 
   def create
-    @user = User.authenticate(allow_params)
-    if @user
+    @user = User.find_by(email: params[:user][:email])
+    p @user
+    p params[:user][:email]
+    if @user.authenticate(params[:user][:password])
       flash[:notice] = "You have successfully login!!!"
       redirect_to :root
     else
       flash[:error] = "Login Failed !!! Invalid Username or Password"
       @user = User.new
-      render :index
+      render :show
     end
   end
-
-  private
-  def allow_params
-    params.require(:user).permit(:email, :password)
-  end
-
 end

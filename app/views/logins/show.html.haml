@@ -1,5 +1,7 @@
 %h3 Login
-=form_for @user,url: logins_path do | form |
+=application_helper
+=game_helper
+=form_for @user,url: login_path, html:{class:"table"} do | form |
   %table
     %tbody
       %tr
@@ -14,4 +16,5 @@
           =form.password_field :password
       %tr
         %td
-          =form.submit "Login"
+          .btm.btn-default
+            =form.submit "Login"
