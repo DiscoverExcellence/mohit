@@ -8,11 +8,11 @@ class Match < ActiveRecord::Base
   validates :no_of_players, presence: true, numericality: true
 
   def winner
-    scores.order(score: :desc).take.player 
+    scores.top_score.player
   end
 
   def losser
-    scores.order(score: :asc).take.player
+    scores.bottom_score.player
   end
 
 end
