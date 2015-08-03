@@ -1,15 +1,24 @@
 !!!
-%html
+%html{lang:"en"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    
+    /to ensure proper rendering and touch zooming
+    /we can disable zooming capability by adding user-scalable=no
+    %meta{name:"viewport", content:"width=device-width,initial-scale=1"}
+
+
     %title DiscoverExcellencebo
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = render 'shared/partial/header'
-    .flash
-      =flash[:notice]
-    .flash
-      =flash[:error]  
-    = yield 
+    / .container-fluid for full width container, spanning the entire width of your viewport
+    / .container for responsive fixed width container.
+    .container-fluid
+      = render 'shared/top_nav_bar'
+      .flash
+        =flash[:notice]
+      .flash
+        =flash[:error]
+      = yield

@@ -1,9 +1,12 @@
-%h3 Create Game
-=form_for @player do | form |
-  =form.label "Name"
-  =form.text_field :name
-  %br
-  =form.label "Information"
-  =form.text_field :info
-  %br
-  =form.submit
+.row
+  =render partial: "shared/left_nav_bar"
+  .col-md-9.col-sm-10.main
+    %h3 Create Game
+    =form_for @player do | form |
+      =form.label "Name"
+      =form.text_field :name
+      %br
+      =form.label "Information"
+      =form.text_field :info
+      %br
+      =form.submit

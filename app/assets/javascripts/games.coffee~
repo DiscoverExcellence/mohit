@@ -4,8 +4,7 @@
 
 $('document').ready ->
   $('.delete-game').click ->
-    console.log($(this).data('game-id'))
-    $('#delete_game_link').attr("href","/games/"+$(this).data('game-id'))
+    console.log $(this.dataset.gameId)
     return
   return
 

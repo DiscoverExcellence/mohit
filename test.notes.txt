@@ -1,0 +1,16 @@
+1. rspec rails is needed
+   depends on 3 gems
+   install using rails g rspec:install
+   rake db:migration ENV=test
+
+   rails g rspec:model game
+
+2. expectation
+
+3 has three parts
+  data
+  method
+  expectation
+
+4 -format documentation
+5 - read rspec rails i.e relish

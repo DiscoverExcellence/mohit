@@ -19,3 +19,6 @@ window.setTimeout(function() {
   document.getElementsByClassName("flash")[0].style.display="none";
   document.getElementsByClassName("flash")[1].style.display="none";
 }, 3000);
+
+
+

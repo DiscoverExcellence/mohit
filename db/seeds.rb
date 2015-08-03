@@ -16,9 +16,9 @@ USERS.each_with_index do | user, index |
 end
 
 
-=begin
 Game.destroy_all
 Player.destroy_all
+
 GAMES = ['FIFA', 'BOYING', 'TENNIS']
 PLAYERS = ['Mohit', 'Devendra', 'Ashwini', 'Sakshi']
 TOURNAMENTS = ['EPL', 'MLS', 'FRENCH_OPEN']
@@ -55,4 +55,3 @@ NO_OF_MATCHES.times do
   match.scores.create!(player_id: winner_player.id, tournament_id: tournament.id, score: SCORE)
   match.scores.create!(player_id: looser_player.id, tournament_id: tournament.id, score:  0)
 end
-=end

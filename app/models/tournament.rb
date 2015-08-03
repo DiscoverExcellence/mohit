@@ -1,8 +1,9 @@
 class Tournament < ActiveRecord::Base
-  validates :name, presence: true , uniqueness: true
+  belongs_to :game
   has_many :matches, dependent: :destroy
   has_many :scores, dependent: :destroy
-  belongs_to :game
+  
+  validates :name, presence: true , uniqueness: true
 
   ## Returns nil if no winner found
   def winner
@@ -29,15 +30,16 @@ class Tournament < ActiveRecord::Base
     #  results format => {player_id1:score_sum1, player_id2:score_sum2, ...}
     results = scores.group("player_id").sum("score")
     return nil if results.empty?
-    
+
     # sort results in desc order by score_sum
-    sorted_results = results.sort { | result1, result2 | result2[1] <=> result1[1] } 
+    sorted_results = results.sort { | result1, result2 | result2[1] <=> 
+                                    result1[1] } 
     top_results = sorted_results.first(number)
     top_results.each do | result |
       player_id = result[0]
       top_players << Player.find(player_id)
     end
-    	top_players
+    top_players
   end
 
 end

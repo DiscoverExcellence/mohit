@@ -1,18 +1,18 @@
 class Match < ActiveRecord::Base
+  has_many :scores, dependent: :destroy
+  has_many :players, through: :scores
+  
   belongs_to :game
   belongs_to :tournament
-  
-  has_many :scores , dependent: :destroy
-  has_many :players , through: :scores
   
   validates :no_of_players, presence: true, numericality: true
 
   def winner
-    scores.order(score: :desc).take.player.name 
+    scores.order(score: :desc).take.player 
   end
 
-  def looser
-    scores.order(score: :asc).take.player.name
+  def losser
+    scores.order(score: :asc).take.player
   end
 
 end

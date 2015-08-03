@@ -1,0 +1,10 @@
+.modal.fade#delete-modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h2 Delete
+      .modal-body
+        %p Do you want to delete game?
+      .modal-footer
+        %a{type: "button",  href:"", class: "btn btn-default", 'data-dismiss':"modal"} No 
+        %a{id:"delete_game_link", :"data-method" => :delete, type: "button", href:"", class: "btn btn-primary"} Yes

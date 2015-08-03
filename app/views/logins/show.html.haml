@@ -1,20 +1,11 @@
-%h3 Login
-=application_helper
-=game_helper
-=form_for @user,url: login_path, html:{class:"table"} do | form |
-  %table
-    %tbody
-      %tr
-        %td
-          =form.label "Email"
-        %td
-          =form.text_field :email
-      %tr
-        %td
-          =form.label "Password"
-        %td
-          =form.password_field :password
-      %tr
-        %td
-          .btm.btn-default
-            =form.submit "Login"
+%br
+=form_for @user, url: login_path, html: {class:"form-signin"} do | f |
+  %br
+  %h2.form-sigin-heading Login
+
+  =f.text_field :email, class: "form-control", type: "email", autofocus: "", required: "", placeholder: "Email Address"
+  %br
+
+  =f.text_field :password, class: "form-control", type: "password", required: "", placeholder: "Password"
+  %br
+  %button.btn.btn-lg.btn-primary.btn-block{type:"submit"} Login
