@@ -1,18 +1,19 @@
-.row
-  =render partial: "/shared/left_nav_bar"
-  .col-md-9.col-sm-10
-    %table.table
-      %thead
-        %td Tournament
-        %td Nos of Matches
-        %td Winner
-      %tbody
-        - @tournaments.each do |t|
-          %tr
-            %td= t.name
+.col-md-9.col-sm-10
+  %table.table
+    %thead
+      %td Tournament
+      %td Nos of Matches
+      %td Winner
+    %tbody
+      - @tournaments.each do |t|
+        %tr
+          %td
+            = t.name
+          %td
+            = t.matches.count
+          - if t.winner
             %td
-            %td= t.matches.count
-            - if t.winner
-              %td= t.winner.name
-            - else
-              %td= "No Winner"
+              = t.winner.name
+          - else
+            %td
+              = "No Winner"

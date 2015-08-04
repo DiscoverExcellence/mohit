@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  devise_for :users do
+    get "sign_in", to:"devise/sessions#new"
+  end
   concern :match do
     resources :matches
   end

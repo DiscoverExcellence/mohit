@@ -1,5 +1,7 @@
 class TournamentsController < ApplicationController
 
+  before_action :authenticate_user!
+  
   def allow_params()
     params.require(:tournament).permit!()
   end

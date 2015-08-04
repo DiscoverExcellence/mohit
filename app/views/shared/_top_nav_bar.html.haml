@@ -1,3 +1,7 @@
 %nav.navbar.navbar-inverse.navebar-fixed-top
   .container-fluid
     .navbar-brand Discover Excellence
+    .navbar-collapse.collapse#navbar
+      -if user_signed_in?
+        %li
+          =link_to "Sign out", destroy_user_session_path, method: :delete

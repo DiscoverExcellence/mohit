@@ -1,5 +1,7 @@
 class PlayersController < ApplicationController
-  
+
+  before_action :authenticate_user!
+
   def allow_params
     params.require(:player).permit!()
   end

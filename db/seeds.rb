@@ -11,11 +11,11 @@ DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'joshsoftware.com','microsof
 
 USERS.each_with_index do | user, index |
   index += 1
-  user = User.new(name:"#{user}", email:"#{user}@#{DOMAINS[DOMAINS.size%index]}", password:"#{user.reverse}") 
+  user = User.new(name:"#{user}", email:"#{user}@#{DOMAINS[DOMAINS.size%index]}", password:"#{user.reverse}12345") 
   user.save!
 end
 
-
+=begin
 Game.destroy_all
 Player.destroy_all
 
@@ -55,3 +55,4 @@ NO_OF_MATCHES.times do
   match.scores.create!(player_id: winner_player.id, tournament_id: tournament.id, score: SCORE)
   match.scores.create!(player_id: looser_player.id, tournament_id: tournament.id, score:  0)
 end
+=end

@@ -1,8 +1,7 @@
-.row
-  =render partial: "shared/left_nav_bar"
+.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2.main
   %h3 List of Game
-  .col-sm-9.col-md-10.main
-    %table.table
-      %tbody
-        =render @games
-    =render partial: "delete_model"
+  %table.table
+    %tbody
+      =render @games
+  =render partial: "delete_model"
+
