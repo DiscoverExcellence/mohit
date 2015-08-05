@@ -2,6 +2,8 @@
   =@game.errors.full_messages unless @game.errors.empty?
   %h3 Game Details
   =nested_form_for @game, html: {role:"form"} do | form |
+    =select_tag(:game,options_for_select(@avail_games))
+    %br
     =form.label "Name"
     =form.text_field :name
     =form.label "Scoring Points"

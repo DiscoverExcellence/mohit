@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
+=begin
 USERS = ['mohit', 'omkar', 'vivek', 'rahul', 'ravidra', 'raviraj']
 DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'joshsoftware.com','microsoft.com','facebook.com']
 
@@ -14,8 +14,8 @@ USERS.each_with_index do | user, index |
   user = User.new(name:"#{user}", email:"#{user}@#{DOMAINS[DOMAINS.size%index]}", password:"#{user.reverse}12345") 
   user.save!
 end
+=end
 
-=begin
 Game.destroy_all
 Player.destroy_all
 
@@ -55,4 +55,3 @@ NO_OF_MATCHES.times do
   match.scores.create!(player_id: winner_player.id, tournament_id: tournament.id, score: SCORE)
   match.scores.create!(player_id: looser_player.id, tournament_id: tournament.id, score:  0)
 end
-=end

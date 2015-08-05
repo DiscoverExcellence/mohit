@@ -1,10 +1,16 @@
-%h3 List of all matches
-
-%table
-  %tbody
-    - @matches.each do | match |
+.col-sm-9.col-md-10.main
+  %h3 List of all matches
+  %table.table
+    %thead
       %tr
-        %td
-          =match.venue.capitalize
-        %td
-          =match_date(match)
+        %th Venue
+        %th Played On
+    %tbody
+      - @matches.each do | match |
+        %tr
+          %td
+            =match.venue.capitalize
+          %td
+            =match_date(match)
+          %td
+            =link_to "Edit", edit_game_match_path(match.game.id, match.id)

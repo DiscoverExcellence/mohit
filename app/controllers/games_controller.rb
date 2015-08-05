@@ -2,10 +2,18 @@ class GamesController < ApplicationController
 
   before_action :authenticate_user!
 
-  before_filter :find_game, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
   
+  # if Authorization failed redirect to root_url
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
+
+  before_filter :find_game, only: [:show, :edit, :update, :destroy]
+
   def find_game
     @game = Game.find(params.require(:id))
+    @avail_games = Game.pluck(:name, :id)
   end
 
   def allow_params
@@ -23,6 +31,7 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    @avail_games = Game.pluck(:name, :id) || []
     @game.matches.build
     @game.tournaments.build
   end
