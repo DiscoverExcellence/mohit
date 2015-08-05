@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   end
 
   def allow_params
-    params.require(:game).permit(:name, :scoring_points, :matches_attributes)
+    params.require(:game).permit(:name, :scoring_points, :matches_attributes, :tournaments_attributes)
   end
 
   def index

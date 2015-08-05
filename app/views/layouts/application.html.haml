@@ -27,7 +27,7 @@
       /  =flash[:error]
       - if user_signed_in?
         .row
-          =render partial: "shared/left_nav_bar"
+          = render partial: "shared/left_nav_bar"
           = yield
       - else
         = yield

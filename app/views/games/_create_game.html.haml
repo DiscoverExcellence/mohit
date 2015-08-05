@@ -1,29 +1,26 @@
-.row
-  =render partial: "shared/left_nav_bar"
-  .col-md-9.col-sm-10
-    =@game.errors.full_messages unless @game.errors.empty?
-    %h3 Game Details
-    =form_for @game, html: {role:"form"} do | form |
+.col-md-9.col-sm-10
+  =@game.errors.full_messages unless @game.errors.empty?
+  %h3 Game Details
+  =nested_form_for @game, html: {role:"form"} do | form |
+    =form.label "Name"
+    =form.text_field :name
+    =form.label "Scoring Points"
+    =form.text_field :scoring_points
+    %h3 Match Details
+    %br
+    =form.fields_for :matches do | form |
+      =form.label "Venue"
+      =form.text_field :venue
+      =form.label "Number of Players"
+      =form.text_field :no_of_players
+      %br
+    =form.link_to_add "Add Match", :matches, class:"btn btn-default"
+    %h3 Tournament Details
+    %br
+    =form.fields_for :tournaments do | form |
       =form.label "Name"
       =form.text_field :name
-      =form.label "Scoring Points"
-      =form.text_field :scoring_points
-      %h3 Match Details
       %br
-      .matches
-        =form.fields_for :matches do | form |
-          .match_attributes
-            =form.label "Venue"
-            =form.text_field :venue
-            =form.label "Number of Players"
-            =form.text_field :no_of_players
-            %button#new_match{type: "button", class: "btn btn-default"} New Match
-            %br
-      %h3 Tournament Details
-      %br
-      =form.fields_for :tournaments do | form |
-        =form.label "Name"
-        =form.text_field :name
-        %button#new_tournament{type: "button", class: "btn btn-default"} New Tournament
-        %br
-      =form.submit
+    =form.link_to_add "Add Tournament", :tournaments, class: "btn btn-default"
+    %br
+    =form.submit class: "btn btn-default"
