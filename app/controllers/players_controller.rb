@@ -1,10 +1,4 @@
 class PlayersController < ApplicationController
-
-  before_action :authenticate_user!
-  load_and_authorize_resource
-  def allow_params
-    params.require(:player).permit!()
-  end
   
   def index
     @players = Player.all
@@ -45,5 +39,14 @@ class PlayersController < ApplicationController
     @player.destroy
     redirect_to players_path
   end
+
+  private
   
+  before_action :authenticate_user!
+  load_and_authorize_resource
+  
+  def allow_params
+    params.require(:player).permit!()
+  end  
+
 end

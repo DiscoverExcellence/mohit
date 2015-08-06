@@ -1,5 +1,5 @@
 .col-sm-9.col-md-10.main
-  %h3 List of all Tournaments
+  %h3 Tournaments
   %table.table
     %tbody
       - @tournaments.each do | tournament |
@@ -12,3 +12,5 @@
             =link_to "Show", game_tournament_path(tournament.game.id, tournament.id)
           %td
             =link_to "Delete", game_tournament_path(tournament.game.id, tournament.id), method: "delete"
+          %td
+            =link_to "Show Matches"

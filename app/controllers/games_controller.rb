@@ -1,26 +1,6 @@
 class GamesController < ApplicationController
 
-  before_action :authenticate_user!
-
-  load_and_authorize_resource
-  
-  # if Authorization failed redirect to root_url
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: exception.message
-  end
-
-  before_filter :find_game, only: [:show, :edit, :update, :destroy]
-
-  def find_game
-    @game = Game.find(params.require(:id))
-    @avail_games = Game.pluck(:name, :id)
-  end
-
-  def allow_params
-    params.require(:game).permit(:name, :scoring_points, :matches_attributes, :tournaments_attributes)
-  end
-
-  def index
+   def index
     @current_user_name = current_user.name
     @games = Game.all
   end 
@@ -60,6 +40,29 @@ class GamesController < ApplicationController
   def destroy
     @game.destroy
     redirect_to games_path
+  end
+
+  private
+
+  before_action :authenticate_user!
+  #load_and_authorize_resource
+  
+  # if Authorization failed redirect to root_url
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
+  
+  # before callbacks
+  before_filter :find_game, only: [:show, :edit, :update, :destroy]
+  
+  def find_game
+    @game = Game.find(params.require(:id))
+    @avail_games = Game.pluck(:name, :id)
+  end
+
+
+  def allow_params
+    params.require(:game).permit(:name, :scoring_points)
   end
 
 end

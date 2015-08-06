@@ -1,11 +1,12 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top
   .container-fluid
     .navbar-header
-      .navbar-brand
-        =link_to "Discover Excellence", root_path, class: "navbar-brand"
+      =link_to "Discover Excellence", root_path, class: "navbar-brand"
     .navbar-collapse.collapse#navbar
       %ul.nav.navbar-nav.navbar-right
         -if user_signed_in?
+          %li
+            =link_to current_user.role.capitalize, "#"
           %li
             =link_to "Profile", edit_user_registration_path
           %li

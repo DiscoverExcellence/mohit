@@ -1,23 +1,5 @@
 class MatchesController < ApplicationController
 
-  before_action :authenticate_user!
-  load_and_authorize_resource
-
-  # if Authorization failed redirect to root_url
-  rescue_from CanCan::AccessDenied do | exception |
-    redirect_to root_url, alert: exception.message
-  end
-
-  before_filter :find_match, only: [:show, :edit, :update, :destroy]
-
-  def find_match
-    @match = Match.find(params.require(:id))
-  end
-
-  def allow_params
-    params.require(:match).permit(:venue, :no_of_players)
-  end
-
   def index
     @game = Game.find(params.require(:game_id))
     @matches = @game.matches.all
@@ -28,14 +10,16 @@ class MatchesController < ApplicationController
   end
   
   def new
-    
+      @game = Game.find(params.require(:game_id))
+    @match = @game.matches.build()
   end
   
   def create
-    @match.new(allow_params)
+    @game = Game.find(params.require(:game_id))
+    @match = @game.matches.build(allow_params)
     if @match.save
       flash[:notice] = "Match Created"
-      redirect_to new_game_match 
+      redirect_to game_matches_path 
     else
       render :new
     end
@@ -54,5 +38,30 @@ class MatchesController < ApplicationController
   end
 
   def destroy
+    @match.destroy
+    redirect_to game_matches_path
   end
+
+  private
+
+  before_action :authenticate_user!
+  #load_and_authorize_resource
+
+  # if Authorization failed redirect to root_url
+  rescue_from CanCan::AccessDenied do | exception |
+    p "AccessDenied Exception"
+    redirect_to root_url, alert: exception.message
+  end
+
+  # before callbacks
+  before_filter :find_match, only: [:show, :edit, :update, :destroy]
+  
+  def find_match
+    @match = Match.find(params.require(:id))
+  end
+
+  def allow_params
+    params.require(:match).permit(:name, :venue, :no_of_players)
+  end
+
 end

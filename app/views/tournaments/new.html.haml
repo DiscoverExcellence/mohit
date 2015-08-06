@@ -1,6 +1,18 @@
 %h3 Create Tournament
-=form_for @tournament,url: game_tournaments_path(@tournament.game.id) do | form |
+=nested_form_for @tournament,url: game_tournaments_path(@tournament.game.id) do | form |
+  
   =form.label "Name"
   =form.text_field :name
   %br
+  
+  %h3 Match Details
+  %br
+  =form.fields_for :matches do |match_form|
+    
+    =match_form.label "Name"
+    =match_form.text_field :name
+    =match_form.label "Venue"
+    =match_form.text_field :venue
+    %br
+  =form.link_to_add "Add Match", :matches, class:"btn btn-sm btn-primary"
   =form.submit

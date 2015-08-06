@@ -5,8 +5,8 @@ class Match < ActiveRecord::Base
   belongs_to :game
   belongs_to :tournament
   
-  validates :no_of_players, presence: true, numericality: true
-
+  validates :name, :venue, presence: true
+ 
   def winner
     scores.top_score.player
   end

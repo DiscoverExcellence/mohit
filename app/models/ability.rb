@@ -4,9 +4,9 @@ class Ability
   def initialize(user)
     user ||= User.new  
     can :manage, :all if user.role == "admin"
-    can :create, Tournament if user.role == "admin"
-    can :manage, Tournament if user.role == "admin"
-    can :read, :all if user.role.nil?
+    #can :create, Tournament if user.role == "admin"
+    #can :manage, Tournament if user.role == "admin"
+    #can :read, :all if user.role.nil?
     # Define abilities for the passed in user here. For example:
     #
     #user ||= User.new # guest user (not logged in)

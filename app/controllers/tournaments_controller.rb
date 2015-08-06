@@ -1,11 +1,5 @@
 class TournamentsController < ApplicationController
 
-  before_action :authenticate_user!
-  load_and_authorize_resource
-
-  def allow_params()
-    params.require(:tournament).permit!()
-  end
 
   def dashboard
     @tournaments = Tournament.all
@@ -55,4 +49,13 @@ class TournamentsController < ApplicationController
     @tournament.destroy
     redirect_to tournaments_path
   end
+
+
+  before_action :authenticate_user!
+  #load_and_authorize_resource
+
+  def allow_params()
+    params.require(:tournament).permit(:name, :matches)
+  end
+
 end

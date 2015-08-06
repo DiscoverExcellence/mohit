@@ -1,14 +1,24 @@
 = render layout: 'shared/row_devise' do
+
   %h2 Forgot your password?
+
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-    = devise_error_messages!
+
+    -unless devise_error_messages!
+      .alert.alert-danger
+        %strong 
+          Failed
+        = devise_error_messages!
+
     .field
       = f.label :email, for: "inputEmail", class: "sr-only"
       %br/
       %br/
       = f.email_field :email, class: "form-control", placeholder: "Email Address", autofocus: true
+
     .actions
       = f.submit "Send me reset password instructions", class: "btn btn-large btn-primary btn-block"
+
   = render "devise/shared/links"
 
 

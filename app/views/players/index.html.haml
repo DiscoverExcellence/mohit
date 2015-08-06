@@ -1,5 +1,9 @@
 .col-sm-9.col-md-10.main
-  %h3 List of all players
+  .row
+    .col-sm-3.col-md-3
+      %h3 Players
+    .col-sm-3.col-md-3.col-sm-offset-6.col-md-offset-6
+      =link_to "Create New", new_player_path, class: "btn btn-sm btn-primary"
   %table.table
     %tbody
       - @players.each do | player |
