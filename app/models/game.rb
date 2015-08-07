@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+
   has_many :matches, dependent: :destroy
   has_many :tournaments, dependent: :destroy
   
@@ -6,6 +7,5 @@ class Game < ActiveRecord::Base
   validates :scoring_points, presence: true, numericality: true
    
   #accepts_nested_attributes_for :matches, :tournaments, allow_destroy: :true
-
 
 end

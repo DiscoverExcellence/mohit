@@ -1,14 +1,15 @@
-%h3 Game Details
+.col-md-4.col-sm-4
+  %h3 Game Details
 
-%table
-  %tbody
-    %tr
-      %td
-        " Name "
-      %td
-        =@game.name
-    %tr
-      %td
-        "Scoring Points"
-      %td
-        =@game.scoring_points
+  %table.table
+    %tbody
+      %tr
+        %td
+          Name
+        %td
+          =@game.name
+      %tr
+        %td
+          Scoring Points
+        %td
+          =@game.scoring_points

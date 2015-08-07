@@ -1,9 +1,10 @@
-%h3 Update Player
-=form_for @player do | form |
-  =form.label "Name"
-  =form.text_field :name
-  %br
-  =form.label "Information"
-  =form.text_field :info
-  %br
-  =form.submit
+.col-md-3.col-sm-3
+  %h3 Update Player
+  =form_for @player do | form |
+    =form.label "Name"
+    =form.text_field :name, class: "form-control", autofocus:true
+    %br
+    =form.label "Information"
+    =form.text_field :info, class: "form-control", autofocus:true
+    %br
+    =form.submit

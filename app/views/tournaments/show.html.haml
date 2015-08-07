@@ -1,14 +1,15 @@
-%h3 Tournament Details
+.col-md-4.col-sm-4
+  %h3 Tournament Details
 
-%table
-  %tbody
-    %tr
-      %td
-        " Name "
-      %td
-        =@tournament.name
-    %tr
-      %td
-        "Game"
-      %td
-        =@tournament.game.name
+  %table.table
+    %tbody
+      %tr
+        %td
+          Name
+        %td
+          =@tournament.name
+      %tr
+        %td
+          Game
+        %td
+          =@tournament.game.name

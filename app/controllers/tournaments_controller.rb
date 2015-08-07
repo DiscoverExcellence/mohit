@@ -10,16 +10,16 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @tournament = Tournament.find(params.require(:id))
+    @tournament = Tournament.find(params[:id])
   end 
 
   def new
-    @game = Game.find(params.require(:game_id))
+    @game = Game.find(params[:game_id])
     @tournament = @game.tournaments.new
   end
 
   def create
-    @game = Game.find(params.require(:game_id))
+    @game = Game.find(params[:game_id])
     @tournament = @game.tournaments.build(allow_params())
     if @tournament.save
       redirect_to tournaments_path
@@ -29,13 +29,13 @@ class TournamentsController < ApplicationController
   end
 
   def edit
-    @game = Game.find(params.require(:game_id))
-    @tournament = @game.tournaments.find(params.require(:id))
+    @game = Game.find(params[:game_id])
+    @tournament = @game.tournaments.find(params[:id])
   end
 
   def update
-    @game = Game.find(params.require(:game_id))
-    @tournament = @game.tournaments.find(params.require(:id))
+    @game = Game.find(params[:game_id])
+    @tournament = @game.tournaments.find(params[:id])
     if @tournament.update_attributes(allow_params)
       redirect_to tournaments_path
     else
@@ -44,8 +44,8 @@ class TournamentsController < ApplicationController
   end
   
   def destroy
-    @game = Game.find(params.require(:game_id))
-    @tournament = @game.tournaments.find(params.require(:id))
+    @game = Game.find(params[:game_id])
+    @tournament = @game.tournaments.find(params[:id])
     @tournament.destroy
     redirect_to tournaments_path
   end
@@ -55,7 +55,7 @@ class TournamentsController < ApplicationController
   #load_and_authorize_resource
 
   def allow_params()
-    params.require(:tournament).permit(:name, :matches)
+    params.require(:tournament).permit(:name, matches_attributes: [:name, :venue, :game_id])
   end
 
 end

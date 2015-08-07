@@ -1,28 +1,32 @@
 class MatchesController < ApplicationController
 
   def index
-    @game = Game.find(params.require(:game_id))
-    @matches = @game.matches.all
+    @matches = get_context.matches.all
   end
   
   def show
     
   end
   
+  def get_context
+    (params[:game_id]) ? Game.find(params[:game_id])
+                       : Tournament.find(params[:tournament_id])
+  end
+
   def new
-      @game = Game.find(params.require(:game_id))
-    @match = @game.matches.build()
+    @match = get_context.matches.build()
   end
   
   def create
-    @game = Game.find(params.require(:game_id))
-    @match = @game.matches.build(allow_params)
+    
+    @match = get_context.matches.build(allow_params)
     if @match.save
       flash[:notice] = "Match Created"
       redirect_to game_matches_path 
     else
       render :new
     end
+
   end
   
   def edit
@@ -57,11 +61,11 @@ class MatchesController < ApplicationController
   before_filter :find_match, only: [:show, :edit, :update, :destroy]
   
   def find_match
-    @match = Match.find(params.require(:id))
+    @match = Match.find(params[:id])
   end
 
   def allow_params
-    params.require(:match).permit(:name, :venue, :no_of_players)
+    params.require(:match).permit(:name, :venue, :no_of_players )
   end
 
 end

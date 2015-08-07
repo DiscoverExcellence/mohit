@@ -4,9 +4,11 @@ class Match < ActiveRecord::Base
   
   belongs_to :game
   belongs_to :tournament
-  
+
   validates :name, :venue, presence: true
- 
+  #match cannot exist without game
+  validates :game_id, presence: true
+
   def winner
     scores.top_score.player
   end

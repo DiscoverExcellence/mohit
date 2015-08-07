@@ -4,7 +4,8 @@ class Tournament < ActiveRecord::Base
   has_many :scores, dependent: :destroy
   
   validates :name, presence: true , uniqueness: true
-  
+  #tournament cannot exists without game
+  validates :game_id, presence: true
   accepts_nested_attributes_for :matches
 
   ## Returns nil if no winner found

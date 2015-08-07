@@ -1,14 +1,15 @@
-%h3 Player Details
+.col-md-4.col-sm-4
+  %h3 Player Details
 
-%table
-  %tbody
-    %tr
-      %td
-        " Name "
-      %td
-        =@player.name
-    %tr
-      %td
-        "Information"
-      %td
-        =@player.info
+  %table.table
+    %tbody
+      %tr
+        %td
+          Name
+        %td
+          =@player.name
+      %tr
+        %td
+          Information
+        %td
+          =@player.info

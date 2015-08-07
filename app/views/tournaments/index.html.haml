@@ -13,4 +13,6 @@
           %td
             =link_to "Delete", game_tournament_path(tournament.game.id, tournament.id), method: "delete"
           %td
-            =link_to "Show Matches"
+            =link_to "Show Matches", tournament_matches_path(tournament.id)
+          %td
+            =link_to "Create Matches", 
