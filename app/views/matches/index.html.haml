@@ -29,3 +29,8 @@
               =link_to "Delete", game_match_path(match.game.id, match.id), method: "delete"
             -else
               =link_to "Delete", game_match_path(match.tournament.id, match.id), method: "delete"
+          %td
+            -if params[:game_id]
+              =link_to "Show Players", game_match_players_path(match.game.id, match.id)
+            -else
+              =link_to "Show Players", tournament_match_players_path(match.tournament.id, match.id)

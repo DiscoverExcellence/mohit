@@ -15,4 +15,10 @@
           %td
             =link_to "Show", player_path(player.id)
           %td
-            =link_to "Delete", player_path(player.id), method: "delete"
+            /if player is deleted from game match
+            -if params[:game_id] && params[:match_id]
+              =link_to "Delete", game_match_player_path(params[:game_id], params[:match_id], player.id), method: "delete"
+            -elsif params[:tournament_id] && params[:match_id]
+              =link_to "Delete", tournament_match_player_path(params[:tournament_id], params[:match_id], player.id), method: "delete"
+            -else
+              =link_to "Delete", player_path(player.id), method: "delete"

@@ -36,7 +36,7 @@ gem 'haml-rails', "~> 0.9"
 
 gem 'devise'
 
-gem 'cancan'
+gem 'cancancan'
 
 gem 'nested_form'
 

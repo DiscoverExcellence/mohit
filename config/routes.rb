@@ -1,21 +1,16 @@
 Rails.application.routes.draw do
   
-  devise_for :users do
-    get "sign_in", to:"devise/sessions#new"
-  end
+  devise_for :users
+
   concern :match do
     resources :matches
   end
   
   resources :games
 
-  #concern :admin_match do
-  #  resources :matches, shallow: true
-  #end
-# 
 #  resources :match
   resources :tournaments,only: [:index, :show] do 
-    concerns :match
+    resources :matches
   end
  
   resources :games do
@@ -23,15 +18,32 @@ Rails.application.routes.draw do
   end
 
   resources :games do
-    concerns :match
+    resources :matches
   end
-  
+
+  resources :tournaments do
+    resources :matches do
+      resources :players
+    end
+  end
+
+  resources :games do
+    resources :matches do
+      resources :players
+    end
+  end
+
+  #resource :login, only: [:index, :new, :create]
+  resource :login, only: [:create, :show]
+
+  root 'tournaments#dashboard'
+
+  resources :players
+
+
   #namespace :admin do
   #  resources :tournaments
   #end
-
-  resources :players
-  
   
   #scope 'admin', as: 'admin_reports' do
   #  resources :reports
@@ -43,9 +55,6 @@ Rails.application.routes.draw do
   #end
   # resources :tournament
 
-  #resource :login, only: [:index, :new, :create]
-  resource :login, only: [:create, :show]
-
-  root 'tournaments#dashboard'
   #resources :match_points, as: :scores
+
 end

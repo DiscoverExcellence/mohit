@@ -2,7 +2,7 @@ class Tournament < ActiveRecord::Base
   belongs_to :game
   has_many :matches, dependent: :destroy
   has_many :scores, dependent: :destroy
-  
+  has_many :players, through: :scores  
   validates :name, presence: true , uniqueness: true
   #tournament cannot exists without game
   validates :game_id, presence: true
