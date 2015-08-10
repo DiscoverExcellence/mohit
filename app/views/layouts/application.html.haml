@@ -21,10 +21,10 @@
       =notice
       %p{class:"alert"}
       =alert
-      /.flash
-      /  =flash[:notice]
-      /.flash
-      /  =flash[:error]
+      .flash
+        =flash[:notice]
+      .flash
+        =flash[:error]
       - if user_signed_in?
         .row
           = render partial: "shared/left_nav_bar"

@@ -1,24 +1,46 @@
+-if params[:game_id] && params[:match_id]
+
+  - new_player_link   = new_game_match_player_path(params[:game_id], params[:match_id])
+  - delete_modal_link = game_match_player_path(params[:game_id], params[:match_id], 0)
+  - head_title        = "#{Game.find(params[:game_id]).name} , #{Match.find(params[:match_id]).name.capitalize} Players"
+-elsif params[:tournament_id] && params[:match_id]
+
+  - new_player_link   = new_tournament_match_player_path(params[:tournament_id], params[:match_id])
+  - delete_modal_link = tournament_match_player_path(params[:tournament_id], params[:match_id], 0)
+  - curr_tournament   = Tournament.find(params[:tournament_id])
+  - head_title        = "#{curr_tournament.name}  #{curr_tournament.matches.find(params[:match_id]).name.capitalize} Players"
+
+-else
+
+  - new_player_link   = new_player_path
+  - delete_modal_link = player_path(0)
+  - head_title        = "Players"
 .col-sm-9.col-md-10.main
   .row
-    .col-sm-3.col-md-3
-      %h3 Players
-    .col-sm-3.col-md-3.col-sm-offset-6.col-md-offset-6
-      =link_to "Create New", new_player_path, class: "btn btn-sm btn-primary"
+    .col-sm-6.col-md-6
+      %h3
+        =head_title
+    .col-sm-3.col-md-3.col-sm-offset-3.col-md-offset-3
+      =link_to "Add New", new_player_link, class: "btn btn-sm btn-primary"
+
   %table.table
+    %thead
+      %tr
+        %th Name
+        %th Score
     %tbody
       - @players.each do | player |
         %tr
           %td
             =player.name.capitalize
+          -if params[:match_id]
+            %td
+              =player.scores.find_by(match_id: params[:match_id]).score
           %td
             =link_to "Edit", edit_player_path(player.id)
           %td
             =link_to "Show", player_path(player.id)
           %td
-            /if player is deleted from game match
-            -if params[:game_id] && params[:match_id]
-              =link_to "Delete", game_match_player_path(params[:game_id], params[:match_id], player.id), method: "delete"
-            -elsif params[:tournament_id] && params[:match_id]
-              =link_to "Delete", tournament_match_player_path(params[:tournament_id], params[:match_id], player.id), method: "delete"
-            -else
-              =link_to "Delete", player_path(player.id), method: "delete"
+            =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':player.id
+
+=render partial: "/shared/delete_model",locals: {partial_url_without_id: delete_modal_link}

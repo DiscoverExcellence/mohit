@@ -11,8 +11,7 @@
           %td
             =link_to "Show", game_tournament_path(tournament.game.id, tournament.id)
           %td
-            =link_to "Delete", game_tournament_path(tournament.game.id, tournament.id), method: "delete"
+            =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':tournament.id
           %td
             =link_to "Show Matches", tournament_matches_path(tournament.id)
-          %td
-            =link_to "Create Matches" 
+=render partial: "/shared/delete_model",locals: {partial_url_without_id: tournament_path(0)}

@@ -31,7 +31,7 @@ end
 GAMES.each_with_index do |game, index|
   game = Game.find_or_create_by!(name:"#{game}", scoring_points: 5, description:"#{game}")
   tournament = game.tournaments.find_or_create_by!(name:"#{TOURNAMENTS[index]}")
-  match = game.matches.find_or_create_by!(tournament_id: tournament.id, venue:"#{VENUES[index]}", no_of_players:11)
+  match = game.matches.find_or_create_by!(name: "match#{index}", tournament_id: tournament.id, venue:"#{VENUES[index]}", no_of_players:11)
   winner_player = Player.find_by(name:"#{PLAYERS[index]}")
   looser_player = Player.find_by(name:"#{PLAYERS[index + 1]}")
 
@@ -48,10 +48,12 @@ NO_OF_MATCHES = 10
 VENUE = "Los Angeles"
 game = Game.find_or_create_by!(name:"#{GAME}", scoring_points: SCORE, description:"#{GAME}")
 tournament = game.tournaments.find_or_create_by!(name:"#{TOURNAMENT}")
+index = 0
 NO_OF_MATCHES.times do
-  match = game.matches.create!(tournament_id: tournament.id, venue:"#{VENUE}", no_of_players:11)
+  match = game.matches.create!(name: "match#{index}", tournament_id: tournament.id, venue:"#{VENUE}", no_of_players:11)
   winner_player = Player.find_by(name:"Mohit")
   looser_player = Player.find_by(name:"Devendra")
   match.scores.create!(player_id: winner_player.id, tournament_id: tournament.id, score: SCORE)
   match.scores.create!(player_id: looser_player.id, tournament_id: tournament.id, score:  0)
+  index += 1
 end

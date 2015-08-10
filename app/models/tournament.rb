@@ -1,16 +1,19 @@
 class Tournament < ActiveRecord::Base
+  
   belongs_to :game
+  belongs_to :user
   has_many :matches, dependent: :destroy
   has_many :scores, dependent: :destroy
   has_many :players, through: :scores  
+  
   validates :name, presence: true , uniqueness: true
   #tournament cannot exists without game
   validates :game_id, presence: true
+
   accepts_nested_attributes_for :matches
 
   ## Returns nil if no winner found
   def winner
-    
     ##
     #  results format => {player_id1:score_sum1, player_id2:score_sum2, ...}
     results = scores.group("player_id").sum("score")
@@ -24,10 +27,8 @@ class Tournament < ActiveRecord::Base
 
   ## Returns nil if no top players found
   def top_players(number)
-    
     raise TypeError,"#{number} is not Integer" unless number.is_a?(Integer)
     raise ArgumentError, "negative #{number} " if number < 0
-
     top_players = []
     ##
     #  results format => {player_id1:score_sum1, player_id2:score_sum2, ...}

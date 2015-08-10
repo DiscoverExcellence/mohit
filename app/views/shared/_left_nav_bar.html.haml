@@ -1,8 +1,11 @@
 .col-sm-3.col-md-2.sidebar
   %ul.nav.nav-sidebar
+    %li.active
+      -if request.fullpath == games_path
+        =link_to "Games ", games_path, class: "active"
+      -else
+        =link_to "Games", games_path, class: "active"
     %li
-      =link_to "Games", games_path
-    %li
-      =link_to "Players", players_path
+      =link_to "Players", players_path, class: "active"
     %li
       =link_to "Tournaments", tournaments_path  

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806002602) do
+ActiveRecord::Schema.define(version: 20150807143104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,10 @@ ActiveRecord::Schema.define(version: 20150806002602) do
     t.string   "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "players", ["user_id"], name: "index_players_on_user_id", using: :btree
 
   create_table "scores", force: :cascade do |t|
     t.integer  "match_id"
@@ -63,9 +66,11 @@ ActiveRecord::Schema.define(version: 20150806002602) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   add_index "tournaments", ["game_id"], name: "index_tournaments_on_game_id", using: :btree
+  add_index "tournaments", ["user_id"], name: "index_tournaments_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -94,8 +99,10 @@ ActiveRecord::Schema.define(version: 20150806002602) do
 
   add_foreign_key "matches", "games"
   add_foreign_key "matches", "tournaments"
+  add_foreign_key "players", "users"
   add_foreign_key "scores", "matches"
   add_foreign_key "scores", "players"
   add_foreign_key "scores", "tournaments"
   add_foreign_key "tournaments", "games"
+  add_foreign_key "tournaments", "users"
 end

@@ -1,9 +1,17 @@
 .col-sm-9.col-md-10.main
-  %h3 
-    -if params[:game_id]
-      ="#{@matches.first.game.name.capitalize} Matches"
-    -else
-      ="#{@matches.first.tournament.name} Matches"
+  %h3
+    .col-sm-6.col-md-6
+      -if @matches.empty?
+        - return
+      -if params[:tournament_id]
+        ="#{@matches.first.tournament.name} Matches"
+      -else
+        ="#{@matches.first.game.name.capitalize} Matches"
+    .col-sm-3.col-md-3.col-sm-offset-3.col-md-offset-3
+      -if params[:tournament_id]
+        = link_to "Create New", new_tournament_match_path(@matches.first.tournament.id), class: "btn btn-sm btn-primary"
+      -else
+        = link_to "Create New", new_game_match_path(@matches.first.game.id), class: "btn btn-sm btn-primary"
   %table.table
     %thead
       %tr
@@ -23,12 +31,12 @@
             -if params[:game_id]
               =link_to "Edit", edit_game_match_path(match.game.id, match.id)
             -else
-              =link_to "Edit", edit_game_match_path(match.tournament.game_id, match.id)
+              =link_to "Edit", edit_tournament_match_path(match.tournament.game_id, match.id)
           %td
             -if params[:game_id]
               =link_to "Delete", game_match_path(match.game.id, match.id), method: "delete"
             -else
-              =link_to "Delete", game_match_path(match.tournament.id, match.id), method: "delete"
+              =link_to "Delete", tournament_match_path(match.tournament.id, match.id), method: "delete"
           %td
             -if params[:game_id]
               =link_to "Show Players", game_match_players_path(match.game.id, match.id)

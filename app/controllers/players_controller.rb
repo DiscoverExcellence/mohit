@@ -21,7 +21,13 @@ class PlayersController < ApplicationController
   end
   
   def new
-    @player = Player.new
+    if params[:game_id]
+
+    elsif params[:tournament_id]
+      
+    else
+      @player = Player.new
+    end
   end
 
   def create
@@ -68,7 +74,7 @@ class PlayersController < ApplicationController
   private
 
   before_action :authenticate_user!
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   def allow_params
     params.require(:player).permit!()

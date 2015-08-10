@@ -1,3 +1,8 @@
 .col-md-4.col.sm-4
   %h3.page-header Create Match
-  =render "create_or_edit_match", url: game_matches_path(@match.game.id)
+
+  -if params[:tournament_id]
+    = render "create_or_edit_match", url: tournament_matches_path(@tournament.id)
+  -else
+    = render "create_or_edit_match", url: game_matches_path(@match.game.id)
+
