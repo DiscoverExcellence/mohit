@@ -4,14 +4,14 @@ class PlayersController < ApplicationController
     # list of players with game's match 
     if params[:game_id] && params[:match_id]
       @match =  Match.find(params[:match_id])
-      @players = @match.players
+      @players = @match.players.paginate(:page => params[:page], :per_page => 1)
     # list of players for tournament's match
     elsif params[:tournament_id] && params[:match_id]
       @tournament = Tournament.find(params[:tournament_id])
-      @players = @tournament.players
+      @players = @tournament.players.paginate(:page => params[:page], :per_page => 1)
     # list of all players
     else
-      @players = Player.all
+      @players = Player.paginate(:page => params[:page], :per_page => 1)
     end
 
   end

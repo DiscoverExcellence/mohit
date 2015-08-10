@@ -1,5 +1,5 @@
 use :- Device authentication, forget password, activation mail
-       can can can authorization
+       cancancan authorization
        paperclip or carierware image processing
        will paginate for pagination list should show 10 record
 admin -> game

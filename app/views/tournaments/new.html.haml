@@ -2,7 +2,7 @@
   %h3 Create Tournament
   
   =nested_form_for @tournament,url: game_tournaments_path(@tournament.game.id) do | form |
-    
+    =form.hidden_field :user_id, value: current_user.id
     =form.label "Name"
     =form.text_field :name, class: "form-control"
     %br

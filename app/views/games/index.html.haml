@@ -4,6 +4,7 @@
       %h3 Games
     .col-sm-3.col-md-3.col-sm-offset-6.col.sm-offset-6
       =link_to "Create New", new_game_path, class: "btn btn-sm btn-primary"
+  =will_paginate @games
   %table.table
     %tbody
       =render @games

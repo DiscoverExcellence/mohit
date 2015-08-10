@@ -3,7 +3,9 @@ class Ability
 
   def initialize(user)
     user ||= User.new  
-    can :manage, :all if user.role == "admin"
+    can :manage, :all if user.role == "admin"    
+    can :create, Tournament if user.role == "tournament_manager"
+    #can :read, Game, :name=>"TENNIS" if user.role == "admin"
     #can :create, Tournament if user.role == "admin"
     #can :manage, Tournament if user.role == "admin"
     #can :read, :all if user.role.nil?

@@ -6,7 +6,7 @@ class TournamentsController < ApplicationController
   end
 
   def index
-    @tournaments = Tournament.all
+    @tournaments = Tournament.where(user_id: current_user.id)
   end
 
   def show
@@ -54,7 +54,7 @@ class TournamentsController < ApplicationController
   #load_and_authorize_resource
 
   def allow_params()
-    params.require(:tournament).permit(:name, matches_attributes: [:name, :venue, :game_id])
+    params.require(:tournament).permit(:name, :user_id, matches_attributes: [:name, :venue, :game_id])
   end
 
 end

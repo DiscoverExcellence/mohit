@@ -11,8 +11,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :email, uniqueness: true
 
-  ROLES = %[admin tournament_manager player_manager]
- 
- 
+  ROLES = %w[admin tournament_manager player_manager]
 
 end
