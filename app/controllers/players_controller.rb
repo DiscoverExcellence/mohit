@@ -21,21 +21,17 @@ class PlayersController < ApplicationController
   end
   
   def new
-    if params[:game_id]
-
-    elsif params[:tournament_id]
-      
-    else
-      @player = Player.new
-    end
+    @player = Player.new
   end
 
   def create
 
     @player = Player.new(allow_params)
     if @player.save
+      flash[:notice] = "#{@player.name} created successfully"
       redirect_to players_path
     else
+      flash[:error] = @player.errors.full_messages.to_sentence
       render :new
     end  
   end
@@ -47,8 +43,10 @@ class PlayersController < ApplicationController
   def update
     @player = Player.find(params[:id])
     if @player.update_attributes(allow_params)
+      flash[:notice] = " Player Update Succesfully"
       redirect_to players_path
     else
+      flash[:error] = @player.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -59,14 +57,17 @@ class PlayersController < ApplicationController
     if params[:game_id] && params[:match_id]
       @match = Match.find(params[:match_id])
       @match.scores.find_by(player_id: params[:id]).destroy
+      flash[:notice] = "Player Deleted Successfully"
       redirect_to game_match_players_path
     elsif params[:tournament_id] && params[:match_id]
       @match = Match.find(params[:match_id])
       @match.scores.find_by(player_id: params[:id]).destroy
+      flash[:notice] = "Player Deleted Successfully"
       redirect_to tournament_match_players_path
     else
       @player = Player.find(params[:id])
       @player.destroy
+      flash[:notice] = "Player Deleted Successfully"
       redirect_to players_path
     end
   end

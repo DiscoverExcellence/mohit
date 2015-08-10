@@ -5,6 +5,8 @@ class Ability
     user ||= User.new  
     can :manage, :all if user.role == "admin"    
     can :create, Tournament if user.role == "tournament_manager"
+    can :manage, Tournament, :user_id => user.id
+     
     #can :read, Game, :name=>"TENNIS" if user.role == "admin"
     #can :create, Tournament if user.role == "admin"
     #can :manage, Tournament if user.role == "admin"

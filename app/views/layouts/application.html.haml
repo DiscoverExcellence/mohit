@@ -20,10 +20,10 @@
       %p{class:"notice"}
       =notice
       %p{class:"alert"}
-      =alert
-      .flash
+        =alert
+      .flash.notice
         =flash[:notice]
-      .flash
+      .flash.error
         =flash[:error]
       - if user_signed_in?
         .row

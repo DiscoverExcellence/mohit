@@ -3,14 +3,15 @@
     =game.name.capitalize
   %td
     - if can? :update, @game
-      =link_to "Edit", edit_game_path(game.id)
+      = link_to "Edit", edit_game_path(game.id), class: "btn btn-default"
   %td
     =link_to "Show", game_path(game.id)
   %td
     - if can? :delete, @game
       =link_to "Delete", "#delete-modal", "data-toggle": "modal", class: "delete-record", 'data-delete-id': game.id
   %td
-    =link_to "Show Matches", game_matches_path(game.id)
+    - if can? :read, Match
+      =link_to "Show Matches", game_matches_path(game.id)
   %td
     - if can? :create, Tournament
       =link_to "Create Tournament", new_game_tournament_path(game.id)

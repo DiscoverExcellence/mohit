@@ -31,6 +31,12 @@
       %br/
       = f.label :Role
       = f.collection_select(:role, User::ROLES, :to_s, lambda{ |i| i.to_s.humanize} )
+
+    .field
+      %br/
+      = f.label :Image
+      = f.file_field :avatar
+
     .actions
       %br/
       = f.submit "Sign up", class: "btn btn-lg btn-primary btn-block"

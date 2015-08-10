@@ -3,12 +3,20 @@
   = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class:"form-sigin"}) do |f|
     
     %h2.form-sigin-heading Log in
+
+    -unless @user.errors.empty?
+      %ul
+        -@user.errors.each do |error|
+          %li 
+            = error.full_message
+            = "error"
     
-    -unless devise_error_messages!.empty?
-      .alert.alert-danger
-        %strong 
-          Login Failed
-        = devise_error_messages!
+    /
+      -unless devise_error_messages!.empty?
+        .alert.alert-danger
+          %strong 
+            Login Failed
+          = devise_error_messages!
 
     .field
       = f.label :email, for: "inputEmail", class: "sr-only"

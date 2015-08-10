@@ -22,8 +22,9 @@
       %h3
         =head_title
     .col-sm-3.col-md-3.col-sm-offset-3.col-md-offset-3
-      =link_to "Add New", new_player_link, class: "btn btn-sm btn-primary"
-  =will_paginate @players
+      -if can? :create, Player
+        =link_to "Add New", new_player_link, class: "btn btn-sm btn-primary"
+  =will_paginate @players, renderer: BootstrapPagination::Rails
   %table.table
     %thead
       %tr
@@ -38,10 +39,12 @@
             %td
               =player.scores.find_by(match_id: params[:match_id]).score
           %td
-            =link_to "Edit", edit_player_path(player.id)
+            -if can? :update, Player
+              =link_to "Edit", edit_player_path(player.id)
           %td
-            =link_to "Show", player_path(player.id)
+            -if can? :read, Player
+              =link_to "Show", player_path(player.id)
           %td
-            =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':player.id
-
+            -if can? :delete, Player
+              =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':player.id
 =render partial: "/shared/delete_model",locals: {partial_url_without_id: delete_modal_link}

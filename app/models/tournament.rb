@@ -4,13 +4,15 @@ class Tournament < ActiveRecord::Base
   belongs_to :user
   has_many :matches, dependent: :destroy
   has_many :scores, dependent: :destroy
-  has_many :players, through: :scores  
+  has_many :players, through: :scores, dependent: :destroy  
   
   validates :name, presence: true , uniqueness: true
   #tournament cannot exists without game
   validates :game_id, presence: true
 
   accepts_nested_attributes_for :matches
+
+  self.per_page = 1
 
   ## Returns nil if no winner found
   def winner

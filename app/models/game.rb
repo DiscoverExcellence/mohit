@@ -5,7 +5,8 @@ class Game < ActiveRecord::Base
   
   validates :name, presence: true, uniqueness: { case_sensitive: true }
   validates :scoring_points, presence: true, numericality: true
-   
+
+  self.per_page = 2
   #accepts_nested_attributes_for :matches, :tournaments, allow_destroy: :true
 
 end

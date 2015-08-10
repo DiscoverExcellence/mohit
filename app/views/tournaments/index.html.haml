@@ -1,5 +1,6 @@
 .col-sm-9.col-md-10.main
   %h3 Tournaments
+  =will_paginate @tournament, renderer: BootstrapPagination::Rails
   %table.table
     %tbody
       - @tournaments.each do | tournament |
@@ -7,11 +8,15 @@
           %td
             =tournament.name.capitalize
           %td
-            =link_to "Edit", edit_game_tournament_path(tournament.game.id, tournament.id)
+            -if can? :update, tournament
+              =link_to "Edit", edit_game_tournament_path(tournament.game.id, tournament.id)
           %td
-            =link_to "Show", game_tournament_path(tournament.game.id, tournament.id)
+            -if can? :read, tournament
+              =link_to "Show", game_tournament_path(tournament.game.id, tournament.id)
           %td
-            =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':tournament.id
+            -if can? :delete, tournament
+              =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':tournament.id
           %td
-            =link_to "Show Matches", tournament_matches_path(tournament.id)
+            -if can? :read, Match
+              =link_to "Show Matches", tournament_matches_path(tournament.id)
 =render partial: "/shared/delete_model",locals: {partial_url_without_id: tournament_path(0)}
