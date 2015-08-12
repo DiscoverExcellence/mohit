@@ -52,7 +52,7 @@ class TournamentsController < ApplicationController
 
 
   before_action :authenticate_user!
-  #load_and_authorize_resource
+  authorize_resource
 
   def allow_params()
     params.require(:tournament).permit(:name, :user_id, matches_attributes: [:name, :venue, :game_id])

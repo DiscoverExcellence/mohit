@@ -34,17 +34,29 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'haml-rails', "~> 0.9"
 
+#Authentication gem
 gem 'devise'
 
+#Authorization gem
 gem 'cancancan'
 
+#
 gem 'nested_form'
 
+# pagination gem
 gem 'will_paginate', '~> 3.0.6'
 
+# integrate twitter bootstrap pagination component with will_paginate
 gem 'will_paginate-bootstrap'
 
+# upload file for ruby application
 gem 'carrierwave'
+
+# Datepicker for twitter bootstrap
+gem 'bootstrap-datepicker-rails'
+
+#Interface between Ruby and ImageMagick
+gem 'rmagick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,7 +1,12 @@
 .col-sm-9.col-md-10.main
   %h3 Tournaments
-  =will_paginate @tournament, renderer: BootstrapPagination::Rails
   %table.table
+    %thead
+      %tr
+        %th
+          Name
+        %th
+          Action
     %tbody
       - @tournaments.each do | tournament |
         %tr
@@ -19,4 +24,5 @@
           %td
             -if can? :read, Match
               =link_to "Show Matches", tournament_matches_path(tournament.id)
+  =will_paginate @tournament, renderer: BootstrapPagination::Rails
 =render partial: "/shared/delete_model",locals: {partial_url_without_id: tournament_path(0)}

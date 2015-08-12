@@ -10,9 +10,11 @@ class Tournament < ActiveRecord::Base
   #tournament cannot exists without game
   validates :game_id, presence: true
 
+  # when tournament is created we can also create matches for that tournament
   accepts_nested_attributes_for :matches
 
-  self.per_page = 1
+  # will_paginate page size limit
+  self.per_page = 10
 
   ## Returns nil if no winner found
   def winner

@@ -1,4 +1,5 @@
-.col-md-3.col-sm-3
+=render "new_or_edit",heading: "Edit Player", url: @update_link
+/
   %h3 Update Player
   =form_for @player, url: @update_link do | form |
     =form.label "Name"
@@ -7,4 +8,7 @@
     =form.label "Information"
     =form.text_field :info, class: "form-control", autofocus:true
     %br
+    -if @include_score
+      =form.label "Score"
+      =select_tag :score, @options_for_score
     =form.submit class: "btn btn-primary btn-sm"

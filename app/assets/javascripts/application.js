@@ -13,8 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-datepicker
 //= require_tree .
 window.setTimeout(function() {
   document.getElementsByClassName("flash")[0].style.display="none";
   document.getElementsByClassName("flash")[1].style.display="none";
 }, 3000);
+$(function() {
+  return $(document).on('click', '.delete-record', function() {
+  href_split_arr = $('#delete-modal-link').attr('href').split("/");
+  href_split_arr[href_split_arr.length - 1] = $(this).data('delete-id');
+  href = href_split_arr.join("/");
+  $('#delete-modal-link').attr('href',href);
+});
+});

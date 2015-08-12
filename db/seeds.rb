@@ -19,24 +19,42 @@ end
 Game.destroy_all
 Player.destroy_all
 
-GAMES = ['FIFA', 'BOYING', 'TENNIS']
-PLAYERS = ['Mohit', 'Devendra', 'Ashwini', 'Sakshi']
-TOURNAMENTS = ['EPL', 'MLS', 'FRENCH_OPEN']
-VENUES = ['Leeds', 'New York', 'Paris']
-
+GAMES = ['Football','Cricket', 'BasketBall', 'Hokey', 'Tennis']
+PLAYERS = ['Mohit', 'Devendra', 'Ashwini', 'Sakshi', 'Vivek', 'Omkar', 'Raviraj', 'Sachin', 'Mukund', 'Yogesh', 'Ganesh', 'Wilson', 'Anurag', 'Swapnil', 'Vishal', 'Nilesh', 'Pritam', 'Rohit', 'Sunil', 'Stephen', 'Akash']
+TOURNAMENTS = ['EPL', 'IPL', 'BasketBall_Tournament', 'Hero India Hokey Legue', 'Australian Open']
+VENUES = ['Leeds', 'New York', 'Paris', 'New York', 'Sydney', 'Melbourne', 'Delhi', 'Mumbai', 'London', 'Manchester', 'Berlin', 'Paris', 'Madrid', 'Rome', 'Dubai']
+SCORING_POINTS = 10
+MAX_MATCHES = 15
 PLAYERS.each do |player|
-  Player.find_or_create_by(name:"#{player}")
+  Player.find_or_create_by(name:"#{player}", info:"#{player}_info")
 end
 
 GAMES.each_with_index do |game, index|
-  game = Game.find_or_create_by!(name:"#{game}", scoring_points: 5, description:"#{game}")
-  tournament = game.tournaments.find_or_create_by!(name:"#{TOURNAMENTS[index]}")
-  match = game.matches.find_or_create_by!(name: "match#{index}", tournament_id: tournament.id, venue:"#{VENUES[index]}", no_of_players:11)
-  winner_player = Player.find_by(name:"#{PLAYERS[index]}")
-  looser_player = Player.find_by(name:"#{PLAYERS[index + 1]}")
+  
+  game        = Game.find_or_create_by!(name:"#{game}", 
+                                        scoring_points: SCORING_POINTS, 
+                                        description:"#{game}")
 
-  match.scores.find_or_create_by!(player_id: winner_player.id,tournament_id: tournament.id, score: 10)
-  match.scores.find_or_create_by!(player_id: looser_player.id,tournament_id: tournament.id, score: 0)
+  tournament  = game.tournaments.find_or_create_by!(name:"#{TOURNAMENTS[index]}")
+  Random.new.rand(MAX_MATCHES).times.each do | match_number | 
+
+    venue_index = Random.new.rand(VENUES.size - 1)
+    match       = game.matches.find_or_create_by!(name: "match#{match_number}", 
+                                                  tournament_id: tournament.id, 
+                                                  venue:"#{VENUES[venue_index]}", 
+                                                  no_of_players:2)
+    winner_player_index = Random.new.rand(PLAYERS.size - 1)
+    winner_player       = Player.find_by(name:"#{PLAYERS[winner_player_index]}")
+    looser_player_index = Random.new.rand(PLAYERS.size - 1)
+    looser_player       = Player.find_by(name:"#{PLAYERS[looser_player_index]}")
+
+    match.scores.find_or_create_by!(player_id: winner_player.id,
+                                    tournament_id: tournament.id,
+                                    score: SCORING_POINTS)
+    match.scores.find_or_create_by!(player_id: looser_player.id,
+                                    tournament_id: tournament.id,
+                                    score: 0)
+  end
 end
 
 TOURNAMENT = 'Sep2015'

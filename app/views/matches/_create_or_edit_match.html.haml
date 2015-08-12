@@ -1,8 +1,7 @@
-=@match.errors.full_messages unless @match.errors.empty?
 =form_for @match, url: url, html: {role: "form"} do | form |
   
-  / match cannot exists without game so if we are creating
-  / match for tournament set tournament game_id as hidden
+  / tournament match cannot exists without game so if we are creating
+  / tournament match set tournament game_id as hidden
   -if @is_tournament_match 
     =form.hidden_field :game_id, value: @tournament.game.id
   
@@ -12,5 +11,9 @@
   =form.label "Venue"
   =form.text_field :venue, class: "form-control"
   %br
-  
+
+  =form.label "Played On"
+  =form.text_field :played_on, 'data-provide': 'datepicker', class: "form-control"
+  %br
+  %br
   =form.submit class: "btn btn-sm btn-primary btn-default"

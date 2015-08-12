@@ -5,7 +5,6 @@ class MatchesController < ApplicationController
   end
   
   def show
-    
   end
 
   def new
@@ -15,9 +14,10 @@ class MatchesController < ApplicationController
   def create
     @match = get_context.matches.build(allow_params)
     if @match.save
-      flash[:notice] = "Match Created"
+      flash[:notice] = "Match #{@match.name} Created Successfully"
       redirect_to @after_create_link
     else
+      flash[:error] = @match.errors.full_messages.to_s
       render :new
     end
   end
@@ -27,15 +27,18 @@ class MatchesController < ApplicationController
   end
   
   def update
+    @match = get_context.matches.find(params[:id])
     if @match.update_attributes(allow_params)
-      flash[:notice] = "Update Success"
+      flash[:notice] = "Match #{@match.name} Updated Successfully"
       redirect_to @after_update_link
     else
+      flash[:error] = @match.errors.full_messages.to_s
       render :edit
     end
   end
 
   def destroy
+    @match = Match.find(params[:id])
     @match.destroy
     redirect_to game_matches_path
   end
@@ -43,16 +46,16 @@ class MatchesController < ApplicationController
   private
 
   before_action :authenticate_user!
-  #load_and_authorize_resource
+  authorize_resource
 
   # if Authorization failed redirect to root_url
   rescue_from CanCan::AccessDenied do | exception |
-    p "AccessDenied Exception"
+    flash[:error] = "Access Denied"
     redirect_to root_url, alert: exception.message
   end
 
   def allow_params
-    params.require(:match).permit(:name, :venue, :no_of_players, :game_id)
+    params.require(:match).permit(:name, :venue, :no_of_players, :played_on, :game_id)
   end
 
   # context is either game or tournament
@@ -63,7 +66,7 @@ class MatchesController < ApplicationController
       @after_create_link = tournament_matches_path
       @after_update_link = tournament_matches_path
       @create_form_link  = tournament_matches_path(@tournament.id)
-      @update_form_link  = tournament_matches_path(@tournament.id, params[:id]) if params[:id]
+      @update_form_link  = tournament_match_path(@tournament.id, params[:id]) if params[:id]
       @is_tournament_match = true
       return @tournament
     else
@@ -71,7 +74,7 @@ class MatchesController < ApplicationController
       @after_create_link = game_matches_path
       @after_update_link = game_matches_path
       @create_form_link  = game_matches_path(@game.id)
-      @update_form_link  = game_matches_path(@game.id, params[:id]) if params[:id]
+      @update_form_link  = game_match_path(@game.id, params[:id]) if params[:id]
       @is_tournament_match = false
       return @game
     end

@@ -4,8 +4,14 @@
       %h3 Games
     .col-sm-3.col-md-3.col-sm-offset-6.col.sm-offset-6
       =link_to "Create New", new_game_path, class: "btn btn-sm btn-primary"
-  =will_paginate @games, renderer: BootstrapPagination::Rails
   %table.table
+    %thead
+      %tr
+        %th
+          Name
+        %th
+          Action
     %tbody
       =render @games
+  =will_paginate @games, renderer: BootstrapPagination::Rails
   =render partial: "delete_model",locals: {partial_url_without_id: game_path(0)} 

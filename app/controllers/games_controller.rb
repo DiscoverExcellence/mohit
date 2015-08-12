@@ -11,7 +11,6 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @avail_games = Game.pluck(:name, :id) || []
     @game.matches.build
     @game.tournaments.build
   end
@@ -19,8 +18,10 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(allow_params)
     if @game.save
+      flash[:notice] = "Game #{@game.name} Created Successfully"
       redirect_to games_path
     else
+      flash[:error] = @game.errors.full_messages.to_s
       render :new
     end
   end
@@ -30,22 +31,24 @@ class GamesController < ApplicationController
   
   def update
     if @game.update_attributes(allow_params)
-      flash[:notice] = "Updated Success"
+      flash[:notice] = "Game #{@game.name} Updated Success"
       redirect_to games_path
     else
+      flash[:error] = @game.errors.full_messages.to_s
       render :edit
     end
   end
 
   def destroy
     @game.destroy
+    flash[:notice] = "Game #{@game.name} Deleted Successfully"
     redirect_to games_path
   end
 
   private
 
   before_action :authenticate_user!
-  #load_and_authorize_resource
+  authorize_resource
   
   # if Authorization failed redirect to root_url
   rescue_from CanCan::AccessDenied do |exception|
@@ -57,7 +60,6 @@ class GamesController < ApplicationController
   
   def find_game
     @game = Game.find(params.require(:id))
-    @avail_games = Game.pluck(:name, :id)
   end
 
 

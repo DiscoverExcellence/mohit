@@ -13,6 +13,6 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  ROLES = %w[admin tournament_manager player_manager]
+  ROLES = %w[admin tournament_manager player_manager user]
 
 end

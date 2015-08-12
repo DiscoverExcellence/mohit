@@ -3,14 +3,37 @@ class Ability
 
   def initialize(user)
     user ||= User.new  
-    can :manage, :all if user.role == "admin"    
+    
+    if user.role == "admin"
+      can :manage, :all
+    end
+
+    if user.role == "tournament_manager"
+      can :read, :all
+      can :manage, Tournament, :user_id => user.id
+      can :manage, Player
+      can :manage, Match
+    end
+
+    if user.role == "player_manager"
+      can :read, :all
+      can :manage, Player, :user_id => user.id
+    end
+
+    if user.role == "user"
+      can :read, :all
+    end
+
+=begin
     can :create, Tournament if user.role == "tournament_manager"
     can :manage, Tournament, :user_id => user.id
-     
+    can :read, :all if user.role == "player_manager"
+    can :create, Player if user.role == "player_manager"
     #can :read, Game, :name=>"TENNIS" if user.role == "admin"
     #can :create, Tournament if user.role == "admin"
     #can :manage, Tournament if user.role == "admin"
     #can :read, :all if user.role.nil?
+=end
     # Define abilities for the passed in user here. For example:
     #
     #user ||= User.new # guest user (not logged in)

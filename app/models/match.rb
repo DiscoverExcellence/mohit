@@ -5,12 +5,20 @@ class Match < ActiveRecord::Base
   belongs_to :game
   belongs_to :tournament
 
-  validates :name, :venue, presence: true
+  validates :name, :venue, :played_on, presence: true
   #match cannot exist without game
   validates :game_id, presence: true
 
+  # will_paginate per_page limit
+  self.per_page = 10
+
   def winner
-    scores.top_score.player
+    begin
+      scores.top_score.player
+    # When Macth is created but no player assigned
+    rescue NoMethodError
+      nil
+    end
   end
 
   def losser

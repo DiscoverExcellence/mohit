@@ -1,0 +1,22 @@
+.col-md-3.col-sm-3
+  %h3 
+    =heading
+  =form_for @player, url: url do | form |
+    =form.label "Name", class: "sr-only"
+    =form.text_field :name, class: "form-control", placeholder: "Name", autofocus: true
+    %br
+    =form.label "Information", class: "sr-only"
+    =form.text_field :info, class: "form-control", placeholder: "Information", autofocus: true
+    %br
+    -if @include_score
+      =form.label "Score"
+      =select_tag :score, options_for_select(@options_for_score, @score)
+      %br
+    -unless @include_score
+      =form.label "Image"
+      =form.file_field :avatar
+      %br
+    =form.submit class: "btn btn-sm btn-primary"
+
+.col-md-3.col-sm-3
+  =image_tag @player.avatar.url
