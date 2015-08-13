@@ -11,7 +11,7 @@ RSpec.describe Match, type: :model do
     winning_player = Player.create!(name: "winning_player")
     losing_player = Player.create!(name: "losing_player")
 
-    @match = game.matches.create!(venue: "London", no_of_players: 2, tournament_id: tournament.id)
+    @match = game.matches.create!(name:"match0", played_on: Time.now, venue: "London", no_of_players: 2, tournament_id: tournament.id)
     @match.scores.create!(tournament_id: tournament.id, player_id: winning_player.id, score: 10)
     @match.scores.create!(tournament_id: tournament.id, player_id: losing_player.id, score: 0)
   

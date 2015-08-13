@@ -5,3 +5,19 @@ use :- Device authentication, forget password, activation mail
 admin -> game
 tournament_mangaer -> tournament, matches, 
 normal user -> can see only matches
+
+
+
+1. image processing options size
+2. per field validation 
+
+3. how instance variable is accessed from controller to view
+
+4. development
+    mail intercept
+5. production
+    email address
+
+Technology to learn
+mongodb
+sidekiq

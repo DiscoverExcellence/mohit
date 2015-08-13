@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   
   devise_for :users
-
-  concern :match do
-    resources :matches
-  end
   
   resources :games
 
@@ -32,14 +28,17 @@ Rails.application.routes.draw do
       resources :players
     end
   end
-
-  #resource :login, only: [:index, :new, :create]
-  resource :login, only: [:create, :show]
-
+  
   root 'tournaments#dashboard'
 
   resources :players
 
+  #resource :login, only: [:index, :new, :create]
+  #resource :login, only: [:create, :show]
+
+  #concern :match do
+  #  resources :matches
+  #end
 
   #namespace :admin do
   #  resources :tournaments

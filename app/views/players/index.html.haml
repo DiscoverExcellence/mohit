@@ -32,7 +32,8 @@
       %thead
         %tr
           %th Name
-          %th Score
+          -if params[:match_id]
+            %th Score
       %tbody
         - @players.each do | player |
           %tr

@@ -11,7 +11,7 @@ RSpec.describe Tournament, type: :model do
     @third_player  = Player.create!(name: "@third_player")
     @fouth_player  = Player.create!(name: "@fouth_player")
 
-    match1 = game.matches.create!(venue: "London", no_of_players: 2, tournament_id: @tournament.id)
+    match1 = game.matches.create!(name: "match0", played_on: Time.now, venue: "London", no_of_players: 2, tournament_id: @tournament.id)
     match1.scores.create!([{tournament_id: @tournament.id, player_id: @first_player.id,  score: 10},
                            {tournament_id: @tournament.id, player_id: @second_player.id, score: 0},
                            {tournament_id: @tournament.id, player_id: @first_player.id,  score: 10},
@@ -19,7 +19,7 @@ RSpec.describe Tournament, type: :model do
                            {tournament_id: @tournament.id, player_id: @second_player.id, score: 10},
                            {tournament_id: @tournament.id, player_id: @third_player.id,  score: 0}]);
 
-    match2 = game.matches.create!(venue: "Delhi", no_of_players: 2, tournament_id: @tournament.id)
+    match2 = game.matches.create!(name: "match1", played_on: Time.now, venue: "Delhi", no_of_players: 2, tournament_id: @tournament.id)
     match2.scores.create!([{tournament_id: @tournament.id, player_id: @first_player.id,  score: 10},
                            {tournament_id: @tournament.id, player_id: @second_player.id, score: 0},
                            {tournament_id: @tournament.id, player_id: @second_player.id, score: 10},

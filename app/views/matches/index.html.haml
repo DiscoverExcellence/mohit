@@ -33,20 +33,25 @@
             %td
               =match_date(match)
             %td
-              -if can? :update, @match
+              -if can? :update, match
                 -if params[:game_id]
                   =link_to "Edit", edit_game_match_path(match.game.id, match.id)
-                -else
+                -elsif params[:tournament_id]
                   =link_to "Edit", edit_tournament_match_path(match.tournament.id, match.id)
             %td
-              -if can? :delete, @match
+              -if can? :delete, match
                 -if params[:game_id]
-                  =link_to "Delete", game_match_path(match.game.id, match.id), method: "delete"
-                -else
-                  =link_to "Delete", tournament_match_path(match.tournament.id, match.id), method: "delete"
+                  =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record" , 'data-delete-id': match.id
+                -elsif params[:tournament_id]
+                  =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id': match.id
             %td
               -if can? :read, Player
                 -if params[:game_id]
                   =link_to "Show Players", game_match_players_path(match.game.id, match.id)
-                -else
+                -elsif params[:tournament_id]
                   =link_to "Show Players", tournament_match_players_path(match.tournament.id, match.id)
+  
+  -if params[:game_id] 
+    =render partial: "/shared/delete_model",locals: { partial_url_without_id: game_match_path(params[:game_id], 0) }
+  -elsif params[:tournament_id]
+    =render partial: "/shared/delete_modal", locals: { partial_url_without_id: tournament_match_path(params[:tournament_id], 0) }
