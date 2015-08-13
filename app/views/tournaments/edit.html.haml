@@ -1,7 +1,9 @@
 .col-md-4.col-sm-4
   %h3 Update Tournament
-  =form_for @tournament, url: game_tournament_path(@tournament.game.id, @tournament.id) do | form |
-    =form.label "Name"
-    =form.text_field :name, class: "form-control"
+  =form_for @tournament, url: game_tournament_path(@tournament.game.id, @tournament.id), html: { role: "form" } do | form |
+    %div{ class: "form-control #{"has-error" if @tournament.errors[:name].empty?}" }
+      =form.label "Name"
+      =form.text_field :name, class: "form-control"
+      =@tournament.errors[:name] unless @tournament.errors[:name].empty?
     %br
-    =form.submit class: "btn btn-sm btn-primary"
+      =form.submit class: "btn btn-sm btn-primary"

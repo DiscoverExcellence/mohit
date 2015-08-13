@@ -1,13 +1,13 @@
-=form_for @game, html: { class: "form-inline", role: "form"} do | form |
+=form_for @game, html: { role: "form"} do | form |
   %br
   
   %div{ class: "form-group #{"has-error" unless @game.errors[:name].empty?}"}
 
     =form.label "Name" 
     %br/
-    =form.text_field :name, class: "form-control", placeholder: "Name"
+    =form.text_field :name, class: "form-control"
     -unless @game.errors[:name].empty?
-      =@game.errors[:name]
+      =@game.errors[:name].join(", ")
   
   %br/
   
@@ -17,8 +17,9 @@
     %br/
     =form.text_field :scoring_points, class: "form-control"
     -unless @game.errors[:scoring_points].empty?
-      =@game.errors[:scoring_points]
+      =@game.errors[:scoring_points].join(", ")
+      %span.glyphicon.glyphicon-remove.form-control-feedback
   
   %br/
-  
+  %br/ 
   =form.submit class: "btn btn-sm btn-primary btn-default"

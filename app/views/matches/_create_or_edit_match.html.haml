@@ -1,19 +1,27 @@
-=form_for @match, url: url, html: {role: "form"} do | form |
+=form_for @match, url: url, html: { role: "form" } do | form |
   
   / tournament match cannot exists without game so if we are creating
   / tournament match set tournament game_id as hidden
+
   -if @is_tournament_match 
     =form.hidden_field :game_id, value: @tournament.game.id
   
-  =form.label "Name"
-  =form.text_field :name, class: "form-control"
-  
-  =form.label "Venue"
-  =form.text_field :venue, class: "form-control"
-  %br
+  %div{ class: "form-group #{"has-error" unless @match.errors[:name].empty? }" }
+    =form.label "Name"
+    =form.text_field :name, class: "form-control"
+    -unless @match.errors[:name].empty?
+      =@match.errors[:name].join(", ")
 
-  =form.label "Played On"
-  =form.text_field :played_on, 'data-provide': 'datepicker', class: "form-control"
-  %br
-  %br
+  %div{ class: "form-group #{"has-error" unless @match.errors[:venue].empty? }" }
+    =form.label "Venue"
+    =form.text_field :venue, class: "form-control"
+    -unless @match.errors[:venue].empty?
+      =@match.errors[:venue].join(", ")
+
+  %div{ class: "form-group #{"has-error" unless @match.errors[:played_on].empty?}" }
+    =form.label "Played On"
+    =form.text_field :played_on, 'data-provide': 'datepicker', class: "form-control"
+    -unless @match.errors[:played_on].empty?
+      =@match.errors[:played_on].join(", ")
+  
   =form.submit class: "btn btn-sm btn-primary btn-default"

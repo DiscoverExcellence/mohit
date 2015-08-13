@@ -17,7 +17,6 @@ class MatchesController < ApplicationController
       flash[:notice] = "Match #{@match.name} Created Successfully"
       redirect_to @after_create_link
     else
-      flash[:error] = @match.errors.full_messages.to_s
       render :new
     end
   end
@@ -32,7 +31,6 @@ class MatchesController < ApplicationController
       flash[:notice] = "Match #{@match.name} Updated Successfully"
       redirect_to @after_update_link
     else
-      flash[:error] = @match.errors.full_messages.to_s
       render :edit
     end
   end

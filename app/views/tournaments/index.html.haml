@@ -25,4 +25,4 @@
             -if can? :read, Match
               =link_to "Show Matches", tournament_matches_path(tournament.id)
   =will_paginate @tournament, renderer: BootstrapPagination::Rails
-=render partial: "/shared/delete_model",locals: {partial_url_without_id: tournament_path(0)}
+=render partial: "/shared/delete_modal",locals: {partial_url_without_id: tournament_path(0)}

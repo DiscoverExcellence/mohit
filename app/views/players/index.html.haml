@@ -57,4 +57,4 @@
               -if can? :delete, Player
                 =link_to "Delete", "#delete-modal", "data-toggle":"modal", class: "delete-record", 'data-delete-id':player.id
     =will_paginate @players, renderer: BootstrapPagination::Rails
-  =render partial: "/shared/delete_model",locals: {partial_url_without_id: delete_modal_link}
+  =render partial: "/shared/delete_modal",locals: {partial_url_without_id: delete_modal_link}

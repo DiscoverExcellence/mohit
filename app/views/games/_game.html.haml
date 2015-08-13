@@ -4,6 +4,7 @@
   %td
     %td
       - if can? :update, @game
+        %span{ class: "glyphicon glyphicon-remove", "aria-hidden": true }
         = link_to "Edit", edit_game_path(game.id), class: "btn btn-default"
     %td
       - if can? :read, @game

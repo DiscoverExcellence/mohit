@@ -52,6 +52,6 @@
                   =link_to "Show Players", tournament_match_players_path(match.tournament.id, match.id)
   
   -if params[:game_id] 
-    =render partial: "/shared/delete_model",locals: { partial_url_without_id: game_match_path(params[:game_id], 0) }
+    =render partial: "/shared/delete_modal", locals: { partial_url_without_id: game_match_path(params[:game_id], 0) }
   -elsif params[:tournament_id]
     =render partial: "/shared/delete_modal", locals: { partial_url_without_id: tournament_match_path(params[:tournament_id], 0) }

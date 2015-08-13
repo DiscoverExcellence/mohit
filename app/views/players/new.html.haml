@@ -1,13 +1,1 @@
 =render "new_or_edit",heading: "Create Player", url: @create_link
-/
-  =form_for @player, url: @create_link do | form |
-    =form.label "Name", class: "sr-only"
-    =form.text_field :name, class: "form-control", placeholder: "Name", autofocus: true
-    %br
-    =form.label "Information", class: "sr-only"
-    =form.text_field :info, class: "form-control", placeholder: "Information", autofocus: true
-    %br
-    =form.label "Image"
-    =form.file_field :avatar
-    %br
-    =form.submit class: "btn btn-sm btn-primary"

@@ -21,7 +21,6 @@ class GamesController < ApplicationController
       flash[:notice] = "Game #{@game.name} Created Successfully"
       redirect_to games_path
     else
-      flash[:error] = @game.errors.full_messages.to_s
       render :new
     end
   end
@@ -34,7 +33,6 @@ class GamesController < ApplicationController
       flash[:notice] = "Game #{@game.name} Updated Success"
       redirect_to games_path
     else
-      flash[:error] = @game.errors.full_messages.to_s
       render :edit
     end
   end

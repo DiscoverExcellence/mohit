@@ -1,21 +1,32 @@
 .col-md-3.col-sm-3
   %h3 
     =heading
-  =form_for @player, url: url do | form |
-    =form.label "Name", class: "sr-only"
-    =form.text_field :name, class: "form-control", placeholder: "Name", autofocus: true
-    %br
-    =form.label "Information", class: "sr-only"
-    =form.text_field :info, class: "form-control", placeholder: "Information", autofocus: true
-    %br
+  =form_for @player, url: url, html: { role: "form" } do | form |
+
+    %div{ class: "form-group #{"has-error" unless @player.errors[:name].empty?}" }
+      =form.label "Name", class: "sr-only"
+      =form.text_field :name, class: "form-control", placeholder: "Name", autofocus: true
+      -unless @player.errors[:name].empty?
+        =@player.errors[:name].join(", ")
+
+    %div{ class: "form-group #{"has-error" unless @player.errors[:info].empty?}" }
+      =form.label "Information", class: "sr-only"
+      =form.text_field :info, class: "form-control", placeholder: "Information", autofocus: true
+      -unless @player.errors[:info].empty?
+        =@player.errors[:info].join(", ")
+
     -if @include_score
-      =form.label "Score"
-      =select_tag :score, options_for_select(@options_for_score, @score)
-      %br
+      %div{ class: "form-group #{"has-error" unless @player.errors[:score].empty?}" }
+        =form.label "Score", class: "sr-only"
+        =select_tag :score, options_for_select(@options_for_score, @score)
+        -unless @player.errors[:score].empty?
+          =@player.errors[:score].join(", ")
+        %br
     -unless @include_score
       =form.label "Image"
       =form.file_field :avatar
       %br
+    
     =form.submit class: "btn btn-sm btn-primary"
 
 .col-md-3.col-sm-3

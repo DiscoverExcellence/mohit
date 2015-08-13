@@ -1,21 +1,37 @@
 .col-md-4.col-sm-4
   %h3 Create Tournament
   
-  =nested_form_for @tournament,url: game_tournaments_path(@tournament.game.id) do | form |
+  =nested_form_for @tournament, url: game_tournaments_path(@tournament.game.id), html: { role: "form" } do | form |
+    / 
+      hidden field set bcoz tournament has tournament manager id
     =form.hidden_field :user_id, value: current_user.id
-    =form.label "Name"
-    =form.text_field :name, class: "form-control"
-    %br
     
+    %div{ class: "form-control #{"has-error" unless @tournament.errors[:name].empty?}" }
+      =form.label "Name", class: "sr-only"
+      =form.text_field :name, class: "form-control"
+      -unless @tournament.errors[:name].empty?
+        =@tournament.errors[:name].join(", ")
+    %br
+
     %h3 Match Details
     %br
     =form.fields_for :matches do |match_form|
+
+      /
+        hidden field set becoz match cannot be exists without game
       =match_form.hidden_field :game_id, value: params[:game_id]      
-      =match_form.label "Name"
-      =match_form.text_field :name, class: "form-control"
-      =match_form.label "Venue"
-      =match_form.text_field :venue, class: "form-control"
+      
+      %div{ class: "form-control" } 
+        =match_form.label "Name"
+        =match_form.text_field :name, class: "form-control"
+      
+      %div{ class: "form-control" } 
+        =match_form.label "Venue"
+        =match_form.text_field :venue, class: "form-control"
+      
       =form.link_to_remove "Remove Match", class: "btn btn-sm"
       %br
+    
     =form.link_to_add "Add Match", :matches, class:"btn btn-sm btn-primary"
+    
     =form.submit

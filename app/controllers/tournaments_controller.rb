@@ -24,7 +24,6 @@ class TournamentsController < ApplicationController
     if @tournament.save
       redirect_to tournaments_path
     else
-      flash[:error] = @tournament.errors.full_messages.to_sentence
       render :new
     end
   end

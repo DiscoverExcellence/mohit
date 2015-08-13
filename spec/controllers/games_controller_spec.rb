@@ -20,8 +20,6 @@ RSpec.describe GamesController, type: :controller do
   
   describe "POST #create" do
     
-    subject {post :create,{:game => {"name"=>"Must Delete", "scoring_points"=>"10"}}}
-
     it "Create a new Contact" do
       expect{post :create,:game => {"name"=>"Must Delete", "scoring_points"=>"10"}}.to change(Game, :count).by(1)
     end
@@ -31,4 +29,5 @@ RSpec.describe GamesController, type: :controller do
     end
 
   end
+
 end

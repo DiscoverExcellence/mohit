@@ -54,7 +54,6 @@ class PlayersController < ApplicationController
         redirect_to players_path
       end
     else
-      flash[:error] = @player.errors.full_messages.to_sentence
       render :new
     end  
 
@@ -90,32 +89,24 @@ class PlayersController < ApplicationController
     
     @player = Player.find(params[:id])
     if @player.update_attributes(allow_params)
-      
       if params[:tournament_id] && params[:match_id]
-        
         @score = Score.where("tournament_id=? and match_id=? and player_id=?",
                              params[:tournament_id], params[:match_id],
                              params[:id]).first
-
         if @score.update_attributes({score: params['score']})
           redirect_to tournament_match_players_path(params[:tournament_id],
                                                     params[:match_id])
         end
-
       elsif params[:game_id] && params["match_id"]
-        
-        @score = Score.where("match_id=? and player_id=?", params[:match_id], 
-                                                           params[:id]).first
-        @score.update_attributes({score: params[:score]}) 
-        redirect_to game_match_players_path(params[:game_id], params[:match_id])
-      
+        @score = Score.where("match_id=? and player_id=?", params[:match_id],params[:id]) 
+        if @score.update_attributes({score: params[:score]}) 
+          redirect_to game_match_players_path(params[:game_id], params[:match_id])
+        end
       else
         flash[:notice] = " Player Update Succesfully"
         redirect_to players_path
       end
-
     else
-      flash[:error] = @player.errors.full_messages.to_sentence
       render :edit
     end
 
