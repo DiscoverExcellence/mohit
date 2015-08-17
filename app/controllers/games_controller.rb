@@ -11,8 +11,6 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @game.matches.build
-    @game.tournaments.build
   end
 
   def create
@@ -59,7 +57,6 @@ class GamesController < ApplicationController
   def find_game
     @game = Game.find(params.require(:id))
   end
-
 
   def allow_params
     params.require(:game).permit(:name, :scoring_points)
