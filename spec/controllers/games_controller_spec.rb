@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe GamesController, type: :controller do
 
   before(:each) do
-    @user = User.create!(name: "mohit", email: "mohitpawar88@gmail.com", password: "mohit12345", role: "admin")
+    @user = FactoryGirl.create(:admin)
     @user.confirm
     sign_in @user
   end

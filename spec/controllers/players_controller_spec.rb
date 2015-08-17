@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PlayersController, type: :controller do
   
   before(:each) do
-    @user = User.create!(name: "mohit", email: "mohitpawar88@gmail.com", password: "mohitpawar", role: "admin")
+    @user = FactoryGirl.create(:admin)
     @user.confirm
     sign_in @user
   end
@@ -15,8 +15,8 @@ RSpec.describe PlayersController, type: :controller do
   describe "GET #index" do
     
     before(:each) do
-      @player1 = Player.create!(name: "player1", info: "player1")
-      @player2 = Player.create!(name: "player2", info: "player2")
+      @player1 = FactoryGirl.create(:player1) 
+      @player2 = FactoryGirl.create(:player2) 
       @players = Player.paginate(:page => 1)
       get :index
     end
@@ -38,7 +38,7 @@ RSpec.describe PlayersController, type: :controller do
   describe "GET #show" do
   
     before(:each) do
-      @player = Player.create(name: "player1", info: "player1")
+      @player = FactoryGirl.create(:player1) 
       get :show, :id => @player.id
     end
     
@@ -58,8 +58,8 @@ RSpec.describe PlayersController, type: :controller do
 
   describe "POST #create" do
     before(:each) do
-      @valid_request    = lambda { post :create, :player => { name: "player1", info: "player1" } }
-      @invalid_request  = lambda { post :create, :player => { name: "", info: "player1" } }
+      @valid_request    = lambda { post :create, :player => FactoryGirl.attributes_for(:player1) }
+      @invalid_request  = lambda { post :create, :player => FactoryGirl.attributes_for(:invalid_player_name) } 
     end
 
     it "should create new Player for valid input" do
@@ -81,7 +81,7 @@ RSpec.describe PlayersController, type: :controller do
 
   describe "GET #edit" do
     before(:each) do
-      @player = Player.create!(name: "player1", info: "player1")
+      @player = FactoryGirl.create(:player1) 
       get :edit, "id"=> "#{@player.id}"
     end
     
@@ -98,8 +98,8 @@ RSpec.describe PlayersController, type: :controller do
   describe "PATCH #update" do
     
     before(:each) do
-      @player = Player.create!(name: "player1", info: "player1")
-      patch :update, "id" => "#{@player.id}", "player"=> {name: "player2", info: "player2"}
+      @player = FactoryGirl.create(:player1) 
+      patch :update, "id" => "#{@player.id}", "player"=> FactoryGirl.attributes_for(:player1)
       @updated_player = Player.find(@player.id)
     end
 
